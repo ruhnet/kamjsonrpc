@@ -103,12 +103,12 @@ func (self *KamailioJsonRpc) Call(serviceMethod string, args interface{}, reply 
 // Add inidividual methods over the generic one
 
 func (self *KamailioJsonRpc) CoreEcho(params []string, reply *[]string) error {
-        var rplRaw json.RawMessage
-        if err := self.Call("core.echo", params, &rplRaw); err != nil {
-                return err
-        }
-        return json.Unmarshal(rplRaw, reply)
-} 
+	var rplRaw json.RawMessage
+	if err := self.Call("core.echo", params, &rplRaw); err != nil {
+		return err
+	}
+	return json.Unmarshal(rplRaw, reply)
+}
 
 func (self *KamailioJsonRpc) UacRegEnable(params []string, reply *string) error {
 	var regRaw json.RawMessage
@@ -146,6 +146,31 @@ func (self *KamailioJsonRpc) UacRegRefresh(params []string, reply *string) error
 	return nil
 }
 
+func (self *KamailioJsonRpc) UacRegInfo(params []string, reply *RegistrationInfo) error {
+	var regRaw json.RawMessage
+	if err := self.Call("uac.reg_info", params, &regRaw); err != nil {
+		return err
+	}
+	return json.Unmarshal(regRaw, reply)
+}
+
+func (self *KamailioJsonRpc) UsrlocDump(params []string, reply *ULDump) error {
+	var ulRaw json.RawMessage
+	if err := self.Call("ul.dump", params, &ulRaw); err != nil {
+		return err
+	}
+	return json.Unmarshal(ulRaw, reply)
+}
+
+//func (self *KamailioJsonRpc) UsrlocLookup(params []string, reply *json.RawMessage) error {
+func (self *KamailioJsonRpc) UsrlocLookup(params []string, reply *ULSingle) error {
+	var ulRaw json.RawMessage
+	if err := self.Call("ul.lookup", params, &ulRaw); err != nil {
+		return err
+	}
+	return json.Unmarshal(ulRaw, reply)
+}
+
 type RegistrationInfo struct {
 	LocalUuid      string `json:"l_uuid"`
 	LocalUsername  string `json:"l_username"`
@@ -162,10 +187,59 @@ type RegistrationInfo struct {
 	TimerExpires   int64  `json:"timer_expires"`
 }
 
-func (self *KamailioJsonRpc) UacRegInfo(params []string, reply *RegistrationInfo) error {
-	var regRaw json.RawMessage
-	if err := self.Call("uac.reg_info", params, &regRaw); err != nil {
-		return err
-	}
-	return json.Unmarshal(regRaw, reply)
+type ULContact struct {
+	Contact struct {
+		Address       string `json:"Address"`
+		Expires       int64  `json:"Expires"`
+		Q             int64  `json:"Q"`
+		CallID        string `json:"Call-ID"`
+		Cseq          int64  `json:"CSeq"`
+		UserAgent     string `json:"User-Agent"`
+		Received      string `json:"Received"`
+		Path          string `json:"Path"`
+		State         string `json:"State"`
+		Flags         int    `json:"Falgs"`
+		CFlags        int    `json:"CFlags"`
+		Socket        string `json:"Socket"`
+		Methods       int64  `json:"Methods"`
+		Ruid          string `json:"Ruid"`
+		Instance      string `json:"Instance"`
+		RegID         int64  `json:"Reg-Id"`
+		ServerID      int    `json:"Server-Id"`
+		TcpconnID     int64  `json:"Tcpconn-Id"`
+		Keepalive     int    `json:"Keepalive"`
+		LastKeepalive int64  `json:"Last-Keepalive"`
+		KaRoundtrip   int    `json:"KA-Roundtrip"`
+		LastModified  int64  `json:"Last-Modified"`
+	} `json:"Contact"`
+}
+
+type ULSingle struct {
+	Aor      string      `json:"AoR"`
+	Contacts []ULContact `json:"Contacts"`
+}
+
+type ULAor struct {
+	Info struct {
+		Aor    string `json:"AoR"`
+		HashID int64  `json:"HashID"`
+		//HashID   uint64      `json:"HashID"`
+		Contacts []ULContact `json:"Contacts"`
+	} `json:"Info"`
+}
+
+type ULDomain struct {
+	Domain struct {
+		Domain string  `json:"Domain"`
+		Size   int     `json:"Size"`
+		Aors   []ULAor `json:"AoRs"`
+		Stats  struct {
+			Records  int64 `json:"Records"`
+			MaxSlots int64 `json:"Max-Slots"`
+		} `json:"Stats"`
+	} `json:"Domain"`
+}
+
+type ULDump struct {
+	Domains []ULDomain `json:"Domains"`
 }
