@@ -190,7 +190,7 @@ type RegistrationInfo struct {
 type ULContact struct {
 	Contact struct {
 		Address       string `json:"Address"`
-		Expires       int64  `json:"Expires"`
+		Expires       string `json:"Expires"`
 		Q             int64  `json:"Q"`
 		CallID        string `json:"Call-ID"`
 		Cseq          int64  `json:"CSeq"`
