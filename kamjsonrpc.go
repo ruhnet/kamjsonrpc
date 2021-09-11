@@ -181,7 +181,7 @@ type RegistrationInfo struct {
 	AuthUsername   string `json:"auth_username"`
 	AuthPassword   string `json:"auth_password"`
 	AuthProxy      string `json:"auth_proxy"`
-	Expires        int64  `json:"expires"`
+	Expires        string `json:"expires"`
 	Flags          int64  `json:"flags"`
 	DiffExpires    int64  `json:"diff_expires"`
 	TimerExpires   int64  `json:"timer_expires"`
