@@ -172,45 +172,45 @@ func (self *KamailioJsonRpc) UsrlocLookup(params []string, reply *ULSingle) erro
 }
 
 type RegistrationInfo struct {
-	LocalUuid      string `json:"l_uuid"`
-	LocalUsername  string `json:"l_username"`
-	LocalDomain    string `json:"l_domain"`
-	RemoteUsername string `json:"r_username"`
-	RemoteDomain   string `json:"r_domain"`
-	Realm          string `json:"realm"`
-	AuthUsername   string `json:"auth_username"`
-	AuthPassword   string `json:"auth_password"`
-	AuthProxy      string `json:"auth_proxy"`
-	Expires        string `json:"expires"`
-	Flags          int64  `json:"flags"`
-	DiffExpires    int64  `json:"diff_expires"`
-	TimerExpires   int64  `json:"timer_expires"`
+	LocalUuid      string          `json:"l_uuid"`
+	LocalUsername  string          `json:"l_username"`
+	LocalDomain    string          `json:"l_domain"`
+	RemoteUsername string          `json:"r_username"`
+	RemoteDomain   string          `json:"r_domain"`
+	Realm          string          `json:"realm"`
+	AuthUsername   string          `json:"auth_username"`
+	AuthPassword   string          `json:"auth_password"`
+	AuthProxy      string          `json:"auth_proxy"`
+	Expires        json.RawMessage `json:"expires"`
+	Flags          int64           `json:"flags"`
+	DiffExpires    int64           `json:"diff_expires"`
+	TimerExpires   int64           `json:"timer_expires"`
 }
 
 type ULContact struct {
 	Contact struct {
-		Address       string `json:"Address"`
-		Expires       string `json:"Expires"`
-		Q             int64  `json:"Q"`
-		CallID        string `json:"Call-ID"`
-		Cseq          int64  `json:"CSeq"`
-		UserAgent     string `json:"User-Agent"`
-		Received      string `json:"Received"`
-		Path          string `json:"Path"`
-		State         string `json:"State"`
-		Flags         int    `json:"Falgs"`
-		CFlags        int    `json:"CFlags"`
-		Socket        string `json:"Socket"`
-		Methods       int64  `json:"Methods"`
-		Ruid          string `json:"Ruid"`
-		Instance      string `json:"Instance"`
-		RegID         int64  `json:"Reg-Id"`
-		ServerID      int    `json:"Server-Id"`
-		TcpconnID     int64  `json:"Tcpconn-Id"`
-		Keepalive     int    `json:"Keepalive"`
-		LastKeepalive int64  `json:"Last-Keepalive"`
-		KaRoundtrip   int    `json:"KA-Roundtrip"`
-		LastModified  int64  `json:"Last-Modified"`
+		Address       string          `json:"Address"`
+		Expires       json.RawMessage `json:"Expires"`
+		Q             int64           `json:"Q"`
+		CallID        string          `json:"Call-ID"`
+		Cseq          int64           `json:"CSeq"`
+		UserAgent     string          `json:"User-Agent"`
+		Received      string          `json:"Received"`
+		Path          string          `json:"Path"`
+		State         string          `json:"State"`
+		Flags         int             `json:"Falgs"`
+		CFlags        int             `json:"CFlags"`
+		Socket        string          `json:"Socket"`
+		Methods       int64           `json:"Methods"`
+		Ruid          string          `json:"Ruid"`
+		Instance      string          `json:"Instance"`
+		RegID         int64           `json:"Reg-Id"`
+		ServerID      int             `json:"Server-Id"`
+		TcpconnID     int64           `json:"Tcpconn-Id"`
+		Keepalive     int             `json:"Keepalive"`
+		LastKeepalive int64           `json:"Last-Keepalive"`
+		KaRoundtrip   int             `json:"KA-Roundtrip"`
+		LastModified  int64           `json:"Last-Modified"`
 	} `json:"Contact"`
 }
 
