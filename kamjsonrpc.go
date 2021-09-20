@@ -154,6 +154,15 @@ func (self *KamailioJsonRpc) UacRegInfo(params []string, reply *RegistrationInfo
 	return json.Unmarshal(regRaw, reply)
 }
 
+func (self *KamailioJsonRpc) DomainReload(params []string, reply *string) error {
+	var response json.RawMessage
+	if err := self.Call("domain.reload", params, &response); err != nil {
+		return err
+	}
+	*reply = OK
+	return nil
+}
+
 func (self *KamailioJsonRpc) UsrlocDump(params []string, reply *ULDump) error {
 	var ulRaw json.RawMessage
 	if err := self.Call("ul.dump", params, &ulRaw); err != nil {
