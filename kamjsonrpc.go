@@ -180,6 +180,14 @@ func (self *KamailioJsonRpc) UsrlocLookup(params []string, reply *ULSingle) erro
 	return json.Unmarshal(ulRaw, reply)
 }
 
+func (self *KamailioJsonRpc) HtableDump(params []string, reply *Htable) error {
+	var resRaw json.RawMessage
+	if err := self.Call("htable.dump", params, &resRaw); err != nil {
+		return err
+	}
+	return json.Unmarshal(resRaw, reply)
+}
+
 type RegistrationInfo struct {
 	LocalUuid      string          `json:"l_uuid"`
 	LocalUsername  string          `json:"l_username"`
@@ -251,4 +259,18 @@ type ULDomain struct {
 
 type ULDump struct {
 	Domains []ULDomain `json:"Domains"`
+}
+
+type HTentry struct {
+	Entry int `json:"entry"`
+	Size  int `json:"size"`
+	Slot  struct {
+		Name  string `json:"name"`
+		Value string `json:"value"`
+		Type  string `json:"type"`
+	} `json:"slot"`
+}
+
+type Htable struct {
+	Htable []HTentry
 }
